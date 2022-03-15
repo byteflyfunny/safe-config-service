@@ -1,8 +1,5 @@
 version: "3.9"
 
-volumes:
-  nginx-shared:
-
 services:
   db:
     image: postgres:13-alpine
@@ -15,8 +12,8 @@ services:
   web:
     build: .
     tty: true
-    volumes:
-      - nginx-shared:${DOCKER_NGINX_VOLUME_ROOT}
+    ports:
+      - "8080:8080"
     env_file:
       - .env
     depends_on:
