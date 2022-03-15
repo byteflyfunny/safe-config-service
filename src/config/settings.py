@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY", None)
+SECRET_KEY = os.getenv("SECRET_KEY", "insecure_key_for_dev")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(strtobool(os.getenv("DEBUG", "false")))
@@ -153,7 +153,7 @@ DATABASES = {
         "NAME": os.getenv("POSTGRES_NAME", "postgres"),
         "USER": os.getenv("POSTGRES_USER", "postgres"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD", "postgres"),
-        "HOST": os.getenv("POSTGRES_HOST", "db"),
+        "HOST": os.getenv("POSTGRES_HOST", "127.0.0.1"),
         "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }
@@ -205,8 +205,8 @@ SWAGGER_SETTINGS = {
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r"^/api/.*$"
 
-CGW_URL = os.environ.get("CGW_URL")
-CGW_FLUSH_TOKEN = os.environ.get("CGW_FLUSH_TOKEN")
+CGW_URL = os.environ.get("CGW_URL","127.0.0.1:8001")
+CGW_FLUSH_TOKEN = os.environ.get("CGW_FLUSH_TOKEN","example-flush")
 
 # By default, Django stores files locally, using the MEDIA_ROOT and MEDIA_URL settings.
 # (using the default the default FileSystemStorage)
@@ -225,7 +225,7 @@ AWS_S3_FILE_OVERWRITE = True
 # This can be useful if your S3 buckets are public.
 AWS_QUERYSTRING_AUTH = False
 DEFAULT_FILE_STORAGE = os.getenv(
-    "DEFAULT_FILE_STORAGE", "storages.backends.s3boto3.S3Boto3Storage"
+    "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
 )
 
 # SECURITY
