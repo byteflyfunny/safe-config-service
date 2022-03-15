@@ -5,7 +5,8 @@ volumes:
 
 services:
   nginx:
-    image: nginx:1.20-alpine
+    image: nginx:alpine
+    hostname: nginx
     env_file:
       - .env
     ports:
